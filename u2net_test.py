@@ -44,13 +44,9 @@ def save_output(image_name,pred,d_dir):
 
     pb_np = np.array(imo)
 
-    aaa = img_name.split(".")
-    bbb = aaa[0:-1]
-    imidx = bbb[0]
-    for i in range(1,len(bbb)):
-        imidx = imidx + "." + bbb[i]
+    img_id = img_name.split(".")[0]
 
-    imo.save(d_dir+imidx+'.png')
+    imo.save(img_id+'.png')
 
 def main(input_dir:str, output_dir:str, model_dir:str):
 
