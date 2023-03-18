@@ -46,7 +46,7 @@ def save_output(image_name,pred,d_dir):
 
     img_id = img_name.split(".")[0]
 
-    imo.save(img_id+'.png')
+    imo.save(os.path.join(d_dir, img_id+'.png'))
 
 def main(input_dir:str, output_dir:str, model_dir:str):
 
