@@ -52,7 +52,7 @@ def save_output(image_name,pred,d_dir):
 
     imo.save(d_dir+imidx+'.png')
 
-def main(input_dir:str, output_dir:str, model_dir:str):
+def predict(input_dir:str, output_dir:str, model_dir:str):
 
     # --------- 1. get image path and name ---------
     #model_name='u2netp'# fixed as u2netp
@@ -113,29 +113,3 @@ def main(input_dir:str, output_dir:str, model_dir:str):
         save_output(img_name_list[i_test],pred,prediction_dir)
 
         del d1,d2,d3,d4,d5,d6,d7
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Create a ArcHydro schema')
-    parser.add_argument('--workspace', metavar='path', required=True,
-                        help='the path to workspace')
-    parser.add_argument('--schema', metavar='path', required=True,
-                        help='path to schema')
-    parser.add_argument('--dem', metavar='path', required=True,
-                        help='path to dem')
-    args = parser.parse_args()
-    main()
-    
-def model_schema(workspace, schema, dem):
-    """Create model schema: rasters folder
-    and file geodatabase"""
-    rasters_directory(workspace)
-    fgdb_schema(schema, dem, workspace)
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input_dir', metavar='path', required=True, help='path to input images')
-    parser.add_argument('--output_dir', metavar='path', required=True, help='directory to save segmented images')
-    parser.add_argument('--model_dir', metavar='path', required=True, help='path to model checkpoint')
-    args = parser.parse_args()
-    main(input_dir=args.input_dir, output_dir=args.output_dir, model_dir=args.model_dir)
