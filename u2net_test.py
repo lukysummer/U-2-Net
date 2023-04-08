@@ -1,4 +1,5 @@
 import os
+import time
 import argparse
 from skimage import io, transform
 import torch
@@ -49,7 +50,7 @@ def save_output(image_name,pred,d_dir):
     imo.save(os.path.join(d_dir, img_id+'.png'))
 
 def main(input_dir:str, output_dir:str, model_dir:str):
-
+    start = time.time()
     # --------- 1. get image path and name ---------
     #model_name='u2netp'# fixed as u2netp
 
@@ -60,7 +61,6 @@ def main(input_dir:str, output_dir:str, model_dir:str):
     #model_dir = os.path.join(os.getcwd(), model_name + '.pth') # path to u2netp pretrained weights
 
     img_name_list = glob.glob(image_dir + os.sep + '*')
-    #print(img_name_list)
 
     # --------- 2. dataloader ---------
     #1. dataloader
@@ -83,6 +83,7 @@ def main(input_dir:str, output_dir:str, model_dir:str):
         net.load_state_dict(torch.load(model_dir, map_location=torch.device('cpu')))
 
     net.eval()
+    print(f"Took {round(time.time() - start, 3)}s to load the model!")
 
     # --------- 4. inference for each image ---------
     for i_test, data_test in enumerate(test_salobj_dataloader):
